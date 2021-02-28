@@ -29,7 +29,7 @@ export default class Slider extends Component {
                 this.canReachEnd = true;
             },
             onPanResponderMove: (evt, gestureState) => {
-                const margin = this.totalWidth - this.state.squareWidth * 1.025;
+                const margin = this.totalWidth - this.state.squareWidth * 2;
                 if(this.props.isLeftToRight === true){
                     if (gestureState.dx <= 0){
                         this.setState({ offsetX: new Animated.Value(gestureState.dx) , childOpacity: 1-(gestureState.dx/margin)});
@@ -89,6 +89,7 @@ export default class Slider extends Component {
                     onLayout={event => {
                         this.setState({ squareWidth: event.nativeEvent.layout.width });
                     }}
+                    useNativeDriver={true}
                     style={[{ transform: [{ translateX: this.state.offsetX }]}, this.props.slideOverStyle]}
                     {...this._panResponder.panHandlers}
                 >
@@ -135,3 +136,4 @@ Slider.defaultProps = {
     thumbElement: <View style={{ width: 50, height: 50, backgroundColor: 'green' }} />,
     onEndReached: () => {},
 };
+
